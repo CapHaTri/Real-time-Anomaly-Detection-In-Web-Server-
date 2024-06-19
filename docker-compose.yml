@@ -38,16 +38,6 @@ services:
     ports:
       - '9000:9000'
       - '8000:8000'
-  # pinot-controller:
-  #   container_name: pinot-controller
-  #   image: apachepinot/pinot:0.6.0
-  #   command: "QuickStart -type batch" 
-  #   links:
-  #     - zookeeper
-  #     - kafka
-  #   ports:
-  #     - '9000:9000'
-  #     - '8000:8000'
 
   kafka-producer-py:
     image: 'python:3.12'

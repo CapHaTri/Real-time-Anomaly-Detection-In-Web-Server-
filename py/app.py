@@ -355,7 +355,7 @@ st_autorefresh(interval=5000, key='fizzbuzzcounter')
 
 
 
-conn = connect(host='172.20.0.6', port=8000)
+conn = connect(host='172.18.0.4', port=8000, path='/query/sql', scheme='http')
 curs = conn.cursor()
 
 curs.execute("""
