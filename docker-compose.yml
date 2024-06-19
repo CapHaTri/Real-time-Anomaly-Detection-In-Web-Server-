@@ -1,0 +1,71 @@
+version: '3'
+
+services:
+
+  zookeeper:
+    container_name: zookeeper
+    image: 'bitnami/zookeeper:latest'
+    hostname: zookeeper
+    ports:
+      - '2181:2181'
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+
+  kafka:
+    container_name: kafka
+    image: 'bitnami/kafka:latest'
+    hostname: kafka
+    ports:
+      - '9092:9092'
+      - '29092:29092'
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      - KAFKA_LISTENERS=PLAINTEXT://:9092,PLAINTEXT_HOST://:29092
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    depends_on:
+      - zookeeper
+
+  pinot:
+    container_name: pinot
+    image: apachepinot/pinot:0.6.0
+    command: "QuickStart -type batch" 
+    links:
+      - zookeeper
+      - kafka
+    ports:
+      - '9000:9000'
+      - '8000:8000'
+  # pinot-controller:
+  #   container_name: pinot-controller
+  #   image: apachepinot/pinot:0.6.0
+  #   command: "QuickStart -type batch" 
+  #   links:
+  #     - zookeeper
+  #     - kafka
+  #   ports:
+  #     - '9000:9000'
+  #     - '8000:8000'
+
+  kafka-producer-py:
+    image: 'python:3.12'
+    container_name: kafka-producer-py
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./py:/home/
+    command: bash -c "pip install pandas simplejson confluent-kafka && python /home/produce.py "
+    depends_on:
+      - kafka
+  streamlit-app:
+      image: 'my_streamlit_app'
+      container_name: streamlit-app
+      ports:
+        - '8501:8501'
+      volumes:
+      - ./py:/home/
+      command: bash -c "pip install pinotdb streamlit streamlit_autorefresh && streamlit run /home/app.py "
+      depends_on:
+        - kafka

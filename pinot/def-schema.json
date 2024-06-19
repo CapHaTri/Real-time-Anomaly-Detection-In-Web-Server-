@@ -1,0 +1,22 @@
+{
+  "schemaName": "poc",
+  "dimensionFieldSpecs": [
+    {
+      "name": "time_stamp",
+      "dataType": "STRING",
+      "defaultNullValue": ""
+    },
+    {
+      "name": "value_",
+      "dataType": "DOUBLE",
+      "defaultNullValue": "0.0"
+    }
+  ],
+  "metricFieldSpecs": [],
+  "dateTimeFieldSpecs": [{
+    "name": "ts_ms",
+    "dataType": "LONG",
+    "format": "1:MILLISECONDS:EPOCH",
+    "granularity": "1:MILLISECONDS"
+  }]
+}
