@@ -400,15 +400,15 @@ value = []
 for row in rows:
     timestamp.append(row[0])
     value.append(row[2])
-if len(value) >300:
-    value = value[-300:]
-    timestamp = timestamp[-300:]
+if len(value) >250:
+    value = value[-250:]
+    timestamp = timestamp[-250:]
 indices = []
 anomaly_indices = []
 fig, ax = plt.subplots(figsize=(20, 10))  # Kích thước đồ thị
 
 ax.plot(timestamp, value, label='Time Series Data', color='blue')
-if len(value) > 299:
+if len(value) > 249:
     value = Preprocessor.MinMaxScaler(Preprocessor.Detrend(torch.tensor(Preprocessor.Fill_nan(value), dtype=torch.float32).unsqueeze(-1)))
     anomaly_flags = demo(model, value, device)
     indices = np.arange(len(value))
