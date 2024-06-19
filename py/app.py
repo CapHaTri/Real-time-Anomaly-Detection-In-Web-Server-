@@ -359,7 +359,7 @@ conn = connect(host='172.18.0.4', port=8000, path='/query/sql', scheme='http')
 curs = conn.cursor()
 
 curs.execute("""
-SELECT * FROM poc limit 1000    
+SELECT * FROM poc limit 100000000    
 """)
 
 # Lấy tất cả các dòng kết quả
