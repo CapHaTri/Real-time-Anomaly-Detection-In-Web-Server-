@@ -355,7 +355,7 @@ st_autorefresh(interval=5000, key='fizzbuzzcounter')
 
 
 
-conn = connect(host='172.18.0.4', port=8000, path='/query/sql', scheme='http')
+conn = connect(host='172.22.0.6', port=8000, path='/query/sql', scheme='http')
 curs = conn.cursor()
 
 curs.execute("""
@@ -400,14 +400,15 @@ value = []
 for row in rows:
     timestamp.append(row[0])
     value.append(row[2])
-if len(value) >200:
-    value = value[-200:]
-    timestamp = timestamp[-200:]
+if len(value) >300:
+    value = value[-300:]
+    timestamp = timestamp[-300:]
 indices = []
 anomaly_indices = []
 fig, ax = plt.subplots(figsize=(20, 10))  # Kích thước đồ thị
+
 ax.plot(timestamp, value, label='Time Series Data', color='blue')
-if len(value) > 199:
+if len(value) > 299:
     value = Preprocessor.MinMaxScaler(Preprocessor.Detrend(torch.tensor(Preprocessor.Fill_nan(value), dtype=torch.float32).unsqueeze(-1)))
     anomaly_flags = demo(model, value, device)
     indices = np.arange(len(value))
@@ -427,6 +428,6 @@ if len(anomaly_indices) != 0:
 for i in anomaly_indices:
     st.write("Anomoly at : ", timestamp[i])
 # Hiển thị đồ thị với Streamlit
-
+# st.write(value, timestamp)
 # Đóng kết nối
 conn.close()

@@ -59,3 +59,9 @@ services:
       command: bash -c "pip install pinotdb streamlit streamlit_autorefresh && streamlit run /home/app.py "
       depends_on:
         - kafka
+networks:
+  my_network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.18.0.0/16
