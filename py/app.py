@@ -353,11 +353,9 @@ def demo(model, sequence, device):
 # -------------------------------------------------------------------------------------------------------------
 st_autorefresh(interval=5000, key='fizzbuzzcounter')
 
-now = datetime.now()
-dt_string = now.strftime("%d %B %Y %H:%M:%S")
-st.write(f"Last update: {dt_string}")
 
-conn = connect(host='172.19.0.6', port=8000)
+
+conn = connect(host='172.20.0.6', port=8000)
 curs = conn.cursor()
 
 curs.execute("""
@@ -375,10 +373,28 @@ model.load_state_dict(torch.load('/home/model1.pt', map_location=torch.device('c
 model = model.to(device)
 Preprocessor = Custom_Dataset()
 
-st.title('Dữ liệu từ Pinot')
+st.markdown(
+    """
+    <style>
+    .centered-title {
+        text-align: center;
+        font-size: 36px;
+        font-weight: bold;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
-# Tạo một bảng để hiển thị dữ liệu
-st.write("Dữ liệu từ Pinot:")
+# Hiển thị tiêu đề căn giữa
+st.markdown('<p class="centered-title">Anomaly Detection</p>', unsafe_allow_html=True)
+
+now = datetime.now()
+dt_string = now.strftime("%d %B %Y %H:%M:%S")
+st.markdown(
+    f'<p style="color:blue; font-style:italic;">Last update: {dt_string}</p>',
+    unsafe_allow_html=True
+)
 timestamp = []
 value = []
 for row in rows:
@@ -400,12 +416,14 @@ if len(value) > 199:
         ax.axvline(x=idx, color='red', linestyle='--', label='Anomaly' if idx == anomaly_indices[0] else "")
 
 ax.set_title('Time Series Data with Anomalies', fontsize=24)
-ax.set_xlabel('Index', fontsize=20)
+ax.set_xlabel('Time', fontsize=20)
 ax.set_ylabel('Value', fontsize=20)
 ax.legend(fontsize=16)
 ax.grid(True)
 
 st.pyplot(fig)
+if len(anomaly_indices) != 0:
+    st.warning("Anomaly detected!")
 for i in anomaly_indices:
     st.write("Anomoly at : ", timestamp[i])
 # Hiển thị đồ thị với Streamlit

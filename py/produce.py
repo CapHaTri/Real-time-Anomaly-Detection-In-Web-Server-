@@ -47,7 +47,7 @@ def read_csv_and_produce(file_path, topic_name):
         print("Producer flushed, shutting down...")
 
 # Đường dẫn đến file CSV và tên topic Kafka
-csv_file_path = '/home/data.csv'
+csv_file_path = '/home/ec2_cpu_utilization_77c1ca.csv'
 kafka_topic = 'poc.topic'
 
 # Gọi hàm để đọc từ CSV và gửi dữ liệu vào Kafka
