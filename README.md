@@ -39,3 +39,5 @@ http://localhost:9000/#/query
 Execute the following SQL repeatedly to see the sample on-the-fly aggregation results:
 > SELECT person_name, sum(incoming_amount) FROM poc
 GROUP BY person_name
+
+![image](https://github.com/user-attachments/assets/8c775526-df57-46fb-9d2d-826867fe765a)
