@@ -41,3 +41,6 @@ Execute the following SQL repeatedly to see the sample on-the-fly aggregation re
 GROUP BY person_name
 
 ![image](https://github.com/user-attachments/assets/8c775526-df57-46fb-9d2d-826867fe765a)
+
+![image](https://github.com/user-attachments/assets/8f2d80c5-4f41-4841-8afe-bf7410d65edd)
+
