@@ -19,7 +19,7 @@ This is a PoC I prepared to demonstrate positioning Apache Pinot as a Kafka cons
 ### To Run
 
 _**Note:** If you get `Docker Container exited with code 137` errors during running and experimenting, chances are that your Docker Desktop -> Resources -> Memory amount is not enough. I have set my resource settings as follows: CPUs 6, Memory 8 GB, Swap 1 GB._
-
+`docker build -t real_time_detect .`
 Open up a terminal and browse to the cloned folder and execute the following command to see the magic happen:
 
 `docker-compose up`
