@@ -85,6 +85,9 @@ This project focuses on detecting anomalies in web server logs in real-time. By 
 ### Open Streamlit UI
 - Open ([http://localhost:8501](http://localhost:8501)) in your browser.
 ## Visualizations
+![image](https://github.com/user-attachments/assets/1bfab6d7-028f-4ad5-8ce8-a9a0ee1a1732)
+
+- Demo available at : ([https://drive.google.com/file/d/1yXt4FX4fi5-li7gEWJ1ADvEKIyX6yp_E/view?usp=sharing](https://drive.google.com/file/d/1yXt4FX4fi5-li7gEWJ1ADvEKIyX6yp_E/view?usp=sharing))
 ## Conclusion
 - This project provides a robust solution for real-time anomaly detection in web servers, integrating multiple technologies to ensure efficient data processing and insightful visualizations. By continuously monitoring web server logs, it helps in identifying and addressing issues promptly.
 ## Future Direction
