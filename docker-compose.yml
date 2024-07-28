@@ -46,7 +46,7 @@ services:
       - PYTHONUNBUFFERED=1
     volumes:
       - ./py:/home/
-    command: bash -c "pip install pandas simplejson confluent-kafka && python /home/produce.py "
+    command: bash -c "pip install pandas simplejson confluent-kafka sqlalchemy pymysql cryptography && python /home/produce.py"
     depends_on:
       - kafka
   streamlit-app:
@@ -59,9 +59,20 @@ services:
       command: bash -c "pip install pinotdb streamlit streamlit_autorefresh && streamlit run /home/app.py "
       depends_on:
         - kafka
+  mysql:
+    image: 'mysql:latest'
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: sql
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql-data:/var/lib/mysql
 networks:
   my_network:
     ipam:
       driver: default
       config:
         - subnet: 172.18.0.0/16
+volumes:
+  mysql-data:
